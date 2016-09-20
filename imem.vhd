@@ -1,48 +1,28 @@
--------------------------------------------------------------------------------
---
--- Title       : imem
--- Design      : Mips
--- Author      : Eduardo Sanchez - modificado
--- Company     : Famaf
---
--------------------------------------------------------------------------------
---
--- File        : imem.vhd
---
--------------------------------------------------------------------------------
---
--- Description : Archivo con el diseño de la memoria ROM del procesador MIPS.
--- Para mantener un diseño corto, la memoria solo puede contener hasta 64 
--- instrucciones (palabras) de 32 bits(aunque podria direccionar mas memoria)
--- Inicialmente, al salir de reset, carga en la memoria el archivo MIPS_SOFT_FILE
--- con el programa a ejecutar.
--------------------------------------------------------------------------------
+library ieee; 
+use ieee.std_logic_1164.all; 
+use std.textio.all;
+use ieee.numeric_std.all; 
 
-library IEEE; 
-use IEEE.STD_LOGIC_1164.all; 
-use STD.TEXTIO.all;
-use IEEE.numeric_std.all; 
+library work;
+use work.components.all;
 
-library WORK;
-use WORK.components.all;
-
-entity imem is -- instruction memory
+entity imem is
   port(a:  in  STD_LOGIC_VECTOR(5 downto 0);
        rd: out STD_LOGIC_VECTOR(31 downto 0));
-end;
+end imem;
 
-architecture behave of imem is
+architecture imem of imem is
 
-constant MAX_BOUND: Integer := 64;
+constant MAX_BOUND: integer := 64;
 
 begin
   process is
-    file mem_file: TEXT;
+    file mem_file: text;
     variable L: line;
     variable ch: character;
     variable index, result: integer;
-    variable word: STD_LOGIC_VECTOR(31 downto 0);
-    type ramtype is array (MAX_BOUND-1 downto 0) of STD_LOGIC_VECTOR(31 downto 0);
+    variable word: std_logic_vector(31 downto 0);
+    type ramtype is array (MAX_BOUND-1 downto 0) of std_logic_vector(31 downto 0);
     variable mem: ramtype;
   begin
     -- initialize memory from file
@@ -75,4 +55,4 @@ begin
       wait on a;
     end loop;
   end process;
-end;
+end imem;

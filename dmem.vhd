@@ -1,43 +1,22 @@
--------------------------------------------------------------------------------
---
--- Title       : dmem
--- Design      : Mips
--- Author      : Eduardo Sanchez - modificado
--- Company     : Famaf
---
--------------------------------------------------------------------------------
---
--- File        : dmem.vhd
---
--------------------------------------------------------------------------------
---
--- Description : Archivo con el diseño de la memoria RAM del procesador MIPS.
--- Para mantener un diseño corto, la memoria solo contiene 64 palabras de 
--- 32 bits c/u (aunque podria direccionar mas memoria)
--- dump: si esta señal esta activa (1), se copia le contenido de la memoria
--- en el archivo de salida DUMP (para su posterior revision).
--------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use std.textio.all;
+use ieee.numeric_std.all; 
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.all;
-use STD.TEXTIO.all;
-use IEEE.numeric_std.all; 
+library work;
+use work.components.all;
 
-library WORK;
-use WORK.components.all;
+entity dmem is
+  port(clk, we: in std_logic;
+       a, wd: in std_logic_vector(31 downto 0);
+       rd: out std_logic_vector(31 downto 0);
+       dump: in std_logic);
+end dmem;
 
-entity dmem is -- data memory
-  port(clk, we:  in STD_LOGIC;
-       a, wd:    in STD_LOGIC_VECTOR(31 downto 0);
-       rd:       out STD_LOGIC_VECTOR(31 downto 0);
-       dump: in STD_LOGIC
-		 );
-end;
-
-architecture behave of dmem is
+architecture dmem of dmem is
  constant MAX_BOUND: Integer := 64;
  
- type ramtype is array (MAX_BOUND-1 downto 0) of STD_LOGIC_VECTOR(31 downto 0);
+ type ramtype is array (MAX_BOUND-1 downto 0) of std_logic_vector(31 downto 0);
  signal mem: ramtype;
 
  procedure memDump is
@@ -73,4 +52,4 @@ begin
 	   memDump;
 	 end if;
 	end process;
-end;
+end dmem;

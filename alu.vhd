@@ -4,14 +4,13 @@ use ieee.numeric_std.all;
 
 entity alu is
   generic(width: integer := 32);
-    port(a, b : in std_logic_vector(width-1 downto 0);
-        alucontrol : in std_logic_vector(2 downto 0);
-        zero : out std_logic;
-        result : out std_logic_vector(width-1 downto 0)
-        );
+    port(a, b: in std_logic_vector(width-1 downto 0);
+        alucontrol: in std_logic_vector(2 downto 0);
+        zero: out std_logic;
+        result: out std_logic_vector(width-1 downto 0));
 end alu;
 
-architecture behavior of alu is
+architecture alu of alu is
   begin
     process(alucontrol)
     variable temp: std_logic_vector(width-1 downto 0);
@@ -38,4 +37,4 @@ architecture behavior of alu is
       end if;
       result <= temp;
     end process;
-  end behavior;
+end alu;
