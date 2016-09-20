@@ -1,0 +1,22 @@
+$date
+  Mon Sep 19 14:57:21 2016
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$var reg 16 ! a_prima[15:0] $end
+$var reg 32 " y_prima[31:0] $end
+$scope module dut $end
+$var reg 16 # a[15:0] $end
+$var reg 32 $ y[31:0] $end
+$upscope $end
+$enddefinitions $end
+#0
+b1010101100110110 !
+b11111111111111111010101100110110 "
+b1010101100110110 #
+b11111111111111111010101100110110 $
+#50000000
