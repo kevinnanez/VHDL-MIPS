@@ -15,20 +15,24 @@ begin
 	process(Op)
 	begin
 		case Op is
-			when "000000" =>
-				MemToReg<='0'; MemWrite<='0'; Branch<='0'; AluSrc<='0'; RegDst<='1'; RegWrite<='1'; Jump<='0'; AluOp<="10";
-			when "100011" =>
-				MemToReg<='1'; MemWrite<='0'; Branch<='0'; AluSrc<='1'; RegDst<='0'; RegWrite<='1'; Jump<='0'; AluOp<="00";
-			when "101011" =>
-				MemToReg<='0'; MemWrite<='1'; Branch<='0'; AluSrc<='1'; RegDst<='0'; RegWrite<='0'; Jump<='0'; AluOp<="00";
-			when "000100" =>
-				MemToReg<='0'; MemWrite<='0'; Branch<='1'; AluSrc<='0'; RegDst<='0'; RegWrite<='0'; Jump<='0'; AluOp<="01";
-			when "001000" =>
-				MemToReg<='0'; MemWrite<='0'; Branch<='0'; AluSrc<='1'; RegDst<='0'; RegWrite<='1'; Jump<='0'; AluOp<="00";
-			when "000010" =>
-				MemToReg<='0'; MemWrite<='0'; Branch<='0'; AluSrc<='0'; RegDst<='0'; RegWrite<='0'; Jump<='1'; AluOp<="00";
-			when others =>
-				MemToReg<='-'; MemWrite<='-'; Branch<='-'; AluSrc<='-'; RegDst<='-'; RegWrite<='-'; Jump<='-'; AluOp<="--";
+			when "000000" => tmp := "110000010";
+      when "100011" => tmp := "101001000";
+      when "101011" => tmp := "001010000";
+      when "000100" => tmp := "000100001";
+      when "001000" => tmp := "101000000";
+      when "000010" => tmp := "000000100";
+      when others   => tmp := "---------";
+    end case;
+
+    RegWrite <= tmp(8);
+    RegDst   <= tmp(7);
+    AluSrc   <= tmp(6);
+    Branch   <= tmp(5);
+    MemWrite <= tmp(4);
+    MemToReg <= tmp(3);
+    Jump     <= tmp(2);
+    AluOp    <= tmp(1 downto 0);
+		
 		end case;
 	end process;
 end maindec;

@@ -3,10 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity aludec is
-port (
-  funct : in std_logic_vector (5 downto 0);
-	aluop : in std_logic_vector (1 downto 0);
-	alucontrol : out std_logic_vector (2 downto 0)
+port (funct : in std_logic_vector (5 downto 0);
+      aluop : in std_logic_vector (1 downto 0);
+      alucontrol : out std_logic_vector (2 downto 0)
 );
 end entity;
 
