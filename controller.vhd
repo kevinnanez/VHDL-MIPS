@@ -9,7 +9,7 @@ entity controller is
       );
 end controller;
 
-architecture structural of troller is
+architecture structural of controller is
 
   component maindec is
     port(Op : in std_logic_vector(5 downto 0);
