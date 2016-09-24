@@ -7,10 +7,7 @@ library work;
 use work.components.all;
 
 entity dmem is
-  port(clk, we: in std_logic;
-       a, wd: in std_logic_vector(31 downto 0);
-       rd: out std_logic_vector(31 downto 0);
-       dump: in std_logic);
+  port(clk, we, dump: in std_logic; a, wd: in std_logic_vector(31 downto 0); rd: out std_logic_vector(31 downto 0));
 end dmem;
 
 architecture dmem of dmem is

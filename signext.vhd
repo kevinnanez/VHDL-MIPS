@@ -3,8 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity signext is
-port(a: in std_logic_vector (15 downto 0);
-     y: out std_logic_vector (31 downto 0));
+	port(a: in std_logic_vector (15 downto 0); y: out std_logic_vector (31 downto 0));
 end signext;
 
 architecture signext of signext is

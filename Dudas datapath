@@ -1,0 +1,7 @@
+Dudas:
+1) No tiene in/out? no sale ni entra nada
+2) El mux2 y el adder los uso las veces que sea necesario? o debo hacer como una variable para vez que lo uso?
+3) Como uso los componentes declarados dentro del package? Simplemente llamando al package ya esta?
+4) Primer mux, una entrada es el PCBranch, y la otra?!?! 
+5) En U4 los input del mux2 son de 5 no de 32, se convierte? se agregan ceros? 
+6) El "dump" no deberia ser una variable que yo creo tambien? En vez de salir de la nada

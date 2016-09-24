@@ -4,10 +4,8 @@ use ieee.numeric_std.all;
 
 entity alu is
   generic(width: integer := 32);
-    port(a, b: in std_logic_vector(width-1 downto 0);
-        alucontrol: in std_logic_vector(2 downto 0);
-        zero: out std_logic;
-        result: out std_logic_vector(width-1 downto 0));
+    port(a, b: in std_logic_vector(width-1 downto 0); alucontrol: in std_logic_vector(2 downto 0);
+        zero: out std_logic; result: out std_logic_vector(width-1 downto 0));
 end alu;
 
 architecture alu of alu is

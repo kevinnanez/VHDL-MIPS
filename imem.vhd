@@ -7,8 +7,7 @@ library work;
 use work.components.all;
 
 entity imem is
-  port(a:  in  STD_LOGIC_VECTOR(5 downto 0);
-       rd: out STD_LOGIC_VECTOR(31 downto 0));
+  port(a: in std_logic_vector(5 downto 0); rd: out std_logic_vector(31 downto 0));
 end imem;
 
 architecture imem of imem is

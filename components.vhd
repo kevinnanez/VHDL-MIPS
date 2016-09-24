@@ -8,7 +8,8 @@ package components is
 	end component;
 
 	component flopr is
-		port (q: out std_logic_vector(width-1 downto 0); d: in std_logic_vector(width-1 downto 0); clk, reset: in std_logic);
+		port (d: in std_logic_vector(width-1 downto 0); clk, reset: in std_logic; 
+			  q: out std_logic_vector(width-1 downto 0));
 	end component;
 
 	component mux2 is
@@ -16,7 +17,7 @@ package components is
 	end component;
 
 	component imem is
-		port(a:  in  std_logic_vector(5 downto 0); rd: out std_logic_vector(31 downto 0));
+		port(a: in std_logic_vector(5 downto 0); rd: out std_logic_vector(31 downto 0));
 	end component;
 
 	component signext is
@@ -24,22 +25,22 @@ package components is
 	end component;
 	
 	component sl2 is
-		port(a : in std_logic_vector(width - 1 downto 0); y : out std_logic_vector(width - 1 downto 0));
+		port(a: in std_logic_vector(width - 1 downto 0); y: out std_logic_vector(width - 1 downto 0));
 	end component;
 	
 	component alu is
-    	port(a, b: in std_logic_vector(width-1 downto 0); alucontrol: in std_logic_vector(2 downto 0); zero: out std_logic; 
-			 result: out std_logic_vector(width-1 downto 0));
+    	port(a, b: in std_logic_vector(width-1 downto 0); alucontrol: in std_logic_vector(2 downto 0); 
+			 zero: out std_logic; result: out std_logic_vector(width-1 downto 0));
 	end component;
 
 	component regfile is
-		port(ra1: in std_logic_vector(4 downto 0); ra2: in std_logic_vector(4 downto 0); wa3: in std_logic_vector(4 downto 0);
-     		 rd1: out std_logic_vector(width - 1 downto 0); rd2: out std_logic_vector(width - 1 downto 0);
-			 wd3: in std_logic_vector(width - 1 downto 0); clk: in std_logic; we3: in std_logic);
+		port(ra1, ra2, wa3: in std_logic_vector(4 downto 0); wd3: in std_logic_vector(width - 1 downto 0); 
+			 clk: in std_logic; we3: in std_logic; rd1, rd2: out std_logic_vector(width - 1 downto 0))
 	end component;
 
 	component dmem is
-		port(clk, we: in std_logic; a, wd: in std_logic_vector(31 downto 0); rd: out std_logic_vector(31 downto 0); dump: in std_logic);
+		port(a, wd: in std_logic_vector(31 downto 0); clk, we, dump: in std_logic; 
+			 rd: out std_logic_vector(31 downto 0));
 	end component;
 
 end components;
