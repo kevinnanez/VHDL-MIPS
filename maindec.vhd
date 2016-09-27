@@ -12,7 +12,8 @@ end maindec;
 
 architecture maindec of maindec is
 begin
-	process(Op)
+  process(Op)
+  variable tmp : std_logic_vector(8 downto 0);
 	begin
 		case Op is
 			when "000000" => tmp := "110000010";
@@ -33,6 +34,5 @@ begin
     Jump     <= tmp(2);
     AluOp    <= tmp(1 downto 0);
 		
-		end case;
 	end process;
 end maindec;

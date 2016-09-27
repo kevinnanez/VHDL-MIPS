@@ -13,19 +13,25 @@ architecture aludec of aludec is
 begin
 process (funct, aluop)
 begin
-	case aluop is
-		when "00" => alucontrol <= "010";
-		when "01" => alucontrol <= "110";
-		when "1-" =>
-		case funct is
-			when "100000" => alucontrol <= "010";
-			when "100010" => alucontrol <= "110";
-			when "100100" => alucontrol <= "000";
-			when "100101" => alucontrol <= "001";
-			when "101010" => alucontrol <= "111";
-			when others => alucontrol <= "---";
-		end case;
-		when others => alucontrol <= "---";
-	end case;
+
+	if aluop = "00" or (aluop(1) = '1' and funct = "100000") then
+	  alucontrol <= "010";
+
+	elsif aluop = "01" or (aluop(1) = '1' and funct = "100010") then
+	  alucontrol <= "110";
+
+	elsif aluop(1) = '1' and funct = "100100" then
+	  alucontrol <= "000";
+
+	elsif aluop(1) = '1' and funct = "100101" then
+	  alucontrol <= "001";
+
+	elsif aluop(1) = '1' and funct = "101010" then
+	  alucontrol <= "111";
+
+	else
+	  alucontrol <= "000";
+
+	end if;
 end process;
 end aludec;
