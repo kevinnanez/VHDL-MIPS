@@ -10,7 +10,7 @@ entity execute is
         RtE, RdE : in std_logic_vector(4 downto 0);
         AluControl : in std_logic_vector(2 downto 0);
         WriteRegE : out std_logic_vector(4 downto 0);
-        RD1E, RD2E, PCPlus4E, SignlmmE : in std_logic_vector(31 downto 0);
+        RD1E, RD2E, PCPlus4E, SignImmE : in std_logic_vector(31 downto 0);
         AluOutE, WriteDataE, PCBranchE : out std_logic_vector(31 downto 0));
 
 end entity;
@@ -31,7 +31,7 @@ begin
   AluMux  : mux2  port map (s => AluSrc, d0 => RD2E,
                             d1 => SignlmmE, y => SrcBE);
 
-  Shift2  : sl2   port map (a => SignlmmE, y => AdderAux);
+  Shift2  : sl2   port map (a => SignImmE, y => AdderAux);
 
   MipsAlu : alu   port map (alucontrol => AluControl, a => RD1E, b => SrcBE,
                             zero => ZeroE, result => AluOutE);
