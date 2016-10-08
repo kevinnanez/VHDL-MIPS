@@ -1,18 +1,20 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use std.textio.all;
-use ieee.numeric_std.all; 
+use ieee.numeric_std.all;
 
 library work;
 use work.components.all;
 
 entity dmem is
-  port(clk, we, dump: in std_logic; a, wd: in std_logic_vector(31 downto 0); rd: out std_logic_vector(31 downto 0));
+  port(clk, we, dump: in std_logic;
+        a, wd: in std_logic_vector(31 downto 0);
+        rd: out std_logic_vector(31 downto 0));
 end dmem;
 
 architecture dmem of dmem is
  constant MAX_BOUND: Integer := 64;
- 
+
  type ramtype is array (MAX_BOUND-1 downto 0) of std_logic_vector(31 downto 0);
  signal mem: ramtype;
 
@@ -25,10 +27,10 @@ architecture dmem of dmem is
 		writeline(dumpfile,dumpline);
 		write(dumpline, string'("Address Data"));
 		writeline(dumpfile,dumpline);
-      while i <= MAX_BOUND-1 loop        
+      while i <= MAX_BOUND-1 loop
 		  write(dumpline, i);
 		  write(dumpline, string'(" "));
-		  write(dumpline, to_integer(unsigned(mem(i))));		  
+		  write(dumpline, to_integer(unsigned(mem(i))));
 		  writeline(dumpfile,dumpline);
         i:=i+1;
       end loop;
@@ -36,13 +38,13 @@ architecture dmem of dmem is
 
 begin
    process(clk, a, mem)
-	begin 
+	begin
 	  if clk'event and clk = '1' and we = '1' then
 				mem(to_integer(unsigned(a(7 downto 2)))) <= wd;
 	  end if;
 	   rd <= mem(to_integer(unsigned(a(7 downto 2))));
 	end process;
-	
+
 	process(dump)
 	begin
 	 if dump = '1' then
