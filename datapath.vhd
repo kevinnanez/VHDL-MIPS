@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.components.all;
+use work.components.flopr;
+use work.dpcomponents.all;
 
 entity datapath is
     port(
