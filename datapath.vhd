@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.components.all;
+use work.components.flopr;
+use work.dpcomponents.all;
 
 entity datapath is
     port(
@@ -12,10 +13,9 @@ end entity;
 
 
 architecture structural of datapath is
-    signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD,SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(32 downto 0);
+    signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD,SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(31 downto 0);
     signal PCSrcM, ZeroE, ZeroM: std_logic;
     signal Funct, Op: std_logic_vector(5 downto 0);
-    signal RtD, RtE, RdD, RdE, WriteRegW, WriteRegE, WriteRegM: std_logic_vector(4 downto 0);
     signal ALUControlE: std_logic_vector(2 downto 0);
 
 begin
@@ -31,16 +31,16 @@ begin
         PcPlus4F => PCPlus4F
     );
 --FF Fe-De
-    Instr_FF : flopr generic map(width => 32) port map (
+    Instr_FF : flopr port map (
         reset => reset,
         clk => clk,
         d => InstrF,
         q => InstrD
     );
 
-    PCPlus4_FF : flopr generic map(width => 32) port map (
-        reset => reset,
-        clk => clk,
+    PCPlus4_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
         d => PCPlus4F,
         q => PCPlus4D
     );
@@ -60,45 +60,45 @@ begin
         SignImmD => SignImmD
     );
 --FF De-Ex
-    RD1_FF : flopr generic map(width => 32) port map (
-        reset => reset,
-        clk => clk,
-        d => RD1D,
+    RD1_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => RD1D, 
         q => RD2E
     );
 
-    RD2_FF : flopr generic map(width => 32) port map (
-        reset => reset,
+    RD2_FF : flopr port map (
+        reset => reset, 
         clk => clk,
-        d => RD2D,
+        d => RD2D, 
         q => RD2E
     );
 
-    Rt_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => RtD,
+    Rt_FF : flopr generic map(width => 3) port map (
+        reset => reset, 
+        clk => clk, 
+        d => RtD, 
         q => RtE
     );
 
-    Rd_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => RdD,
+    Rd_FF : flopr generic map(width => 5) port map (
+        reset => reset, 
+        clk => clk, 
+        d => RdD, 
         q => RdE
     );
 
-    Sign_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => SignImmD,
+    Sign_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => SignImmD, 
         q => SignImmE
     );
 
-    PCPlus41_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => PCPlus4D,
+    PCPlus41_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => PCPlus4D, 
         q => PCPlus4E
     );
 --Execute
@@ -119,34 +119,34 @@ begin
         PCBranchE => PCBranchE
     );
 --FF Ex-Mem
-    Zero_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => ZeroE,
+    Zero_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => ZeroE, 
         q => ZeroM
     );
-    ALUOut_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
+    ALUOut_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
         d => ALUOutE,
         q => ALUOutM
     );
-    WriteData_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => WriteDataE,
+    WriteData_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => WriteDataE, 
         q => WriteDataM
     );
-    WriteReg_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => WriteRegE,
+    WriteReg_FF : flopr generic map(width => 5) port map (
+        reset => reset, 
+        clk => clk, 
+        d => WriteRegE, 
         q => WriteRegM
     );
-    PCBranch_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => PCBranchE,
+    PCBranch_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => PCBranchE, 
         q => PCBranchM
     );
 --Memory
@@ -159,22 +159,22 @@ begin
         WriteDataM => WriteDataM
     );
 --FF Mem-Wr
-    ALUOut1_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => ALUOutM,
+    ALUOut1_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => ALUOutM, 
         q => ALUOutW
     );
-    ReadData_FF : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => ReadDataM,
+    ReadData_FF : flopr port map (
+        reset => reset, 
+        clk => clk, 
+        d => ReadDataM, 
         q => ReadDataW
     );
-    WriteReg_FF1 : flopr generic map(width => n) port map (
-        reset => reset,
-        clk => clk,
-        d => WriteRegM,
+    WriteReg_FF1 : flopr generic map(width => 5) port map (
+        reset => reset, 
+        clk => clk, 
+        d => WriteRegM, 
         q => WriteRegW
     );
 --Writeback
