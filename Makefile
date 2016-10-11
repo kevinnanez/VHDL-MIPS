@@ -1,6 +1,6 @@
 NOMBRE = controller
 
-all: aludec maindec controller components dpcomponents datapath
+all: aludec maindec components controller datapath
 
 # run:
 # 	echo "Super Makefile!"
@@ -35,9 +35,6 @@ controller:
 
 components:
 	ghdl -a components.vhd
-
-dpcomponents:
-	ghdl -a dpcomponents.vhd
 
 datapath:
 	ghdl -a datapath.vhd
