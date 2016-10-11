@@ -1,0 +1,14 @@
+v 4
+file . "dpcomponents.vhd" "4b9871212c24bfd03d0f15307e1b4eae15cdd9d9" "20161011200139.745":
+  package dpcomponents at 1( 0) + 0 on 18;
+file . "controller.vhd" "de251e0133247335262a11191a5a86c5277b58fb" "20161011200139.695":
+  entity controller at 1( 0) + 0 on 15;
+  architecture structural of controller at 13( 314) + 0 on 16;
+file . "aludec.vhd" "1ddb542a7747c64c0309cb515054295d564f637b" "20161011200139.379":
+  entity aludec at 1( 0) + 0 on 11;
+  architecture aludec of aludec at 12( 252) + 0 on 12;
+file . "maindec.vhd" "c7b950cf5c7e1b1ac46f71d63e1c7c53f4f64736" "20161011200139.661":
+  entity maindec at 1( 0) + 0 on 13;
+  architecture maindec of maindec at 13( 277) + 0 on 14;
+file . "components.vhd" "a99f058a1613b7a42f3aa060cd03b450718ec327" "20161011200139.729":
+  package components at 1( 0) + 0 on 17;
