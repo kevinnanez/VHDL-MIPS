@@ -72,4 +72,95 @@ package components is
         );
     end component;
 
+    component fetch is
+        port (
+            Jump, PcSrcM, clk, reset : in std_logic;
+            PcBranchM : in std_logic_vector(31 downto 0);
+            InstrF, PCF, PcPlus4F : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component decode is
+        port(
+            InstrD, ResultW : in std_logic_vector(31 downto 0);
+            WriteRegW : in std_logic_vector(4 downto 0);
+            RegWriteW, clk : in std_logic;
+            Op, Funct : out std_logic_vector(5 downto 0);
+            RD1, RD2 : out std_logic_vector(31 downto 0);
+            RtD, RdD : out std_logic_vector(4 downto 0);
+            SignImmD : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component execute is
+        port (
+            RegDst, AluSrc : in std_logic;
+            AluControl : in std_logic_vector(2 downto 0);
+            RtE, RdE : in std_logic_vector(4 downto 0);
+            RD1E, RD2E, PCPlus4E, SignImmE : in std_logic_vector(31 downto 0);
+            ZeroE : out std_logic;
+            WriteRegE : out std_logic_vector(4 downto 0);
+            AluOutE, WriteDataE, PCBranchE : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component memory is
+        port (
+            ReadDataM : out std_logic_vector(31 downto 0);
+            MemWriteM, clk, dump : in std_logic;
+            AluOutM, WriteDataM : in std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component writeback is
+        port (
+            MemToReg : in std_logic;
+            ResultW : out std_logic_vector(31 downto 0);
+            AluOutW, ReadDataW : in std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component maindec is
+      port (
+          Op : in std_logic_vector(5 downto 0);
+          MemToReg, MemWrite, Branch, AluSrc, RegDst, RegWrite, Jump : out std_logic;
+          AluOp: out std_logic_vector(1 downto 0)
+      );
+    end component;
+
+    component aludec is
+      port(
+          funct : in std_logic_vector(5 downto 0);
+          aluop : in std_logic_vector(1 downto 0);
+          alucontrol : out std_logic_vector(2 downto 0)
+      );
+    end component;
+
+    component datapath is
+        port(
+             clk, reset:        in  std_logic;
+             MemToReg, Branch:   in  std_logic;
+             AluSrc, RegDst:    in  std_logic;
+             RegWrite, Jump:    in  std_logic;
+             AluControl:        in  std_logic_vector(2 downto 0);
+             pc:                out std_logic_vector(31 downto 0);
+             instr:             out  std_logic_vector(31 downto 0);
+             MemWrite: 			  in std_logic;
+             dump:				  in std_logic
+        );
+    end component;
+
+    component controller is
+    port(
+        Op, Funct:          in  std_logic_vector(5 downto 0);
+        MemToReg, MemWrite: out std_logic;
+        AluSrc:      		out std_logic;
+        RegDst, RegWrite:   out std_logic;
+        Jump:               out std_logic;
+        Branch: 			out std_logic;
+        AluControl:         out std_logic_vector(2 downto 0)
+    );
+
+    end component;
+
 end components;

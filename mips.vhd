@@ -14,33 +14,6 @@ architecture structural of mips is
   signal AluControl_s : std_logic_vector(2 downto 0);
   signal instr_s, pc_s : std_logic_vector(31 downto 0);
 
-  component datapath is
-      port(
-           clk, reset:        in  std_logic;
-           MemToReg, Branch:   in  std_logic;
-           AluSrc, RegDst:    in  std_logic;
-           RegWrite, Jump:    in  std_logic;
-           AluControl:        in  std_logic_vector(2 downto 0);
-           pc:                out std_logic_vector(31 downto 0);
-           instr:             out  std_logic_vector(31 downto 0);
-           MemWrite: 			  in std_logic;
-           dump:				  in std_logic
-      );
-  end component;
-
-  component controller is
-  port(
-      Op, Funct:          in  std_logic_vector(5 downto 0);
-      MemToReg, MemWrite: out std_logic;
-      AluSrc:      		out std_logic;
-      RegDst, RegWrite:   out std_logic;
-      Jump:               out std_logic;
-      Branch: 			out std_logic;
-      AluControl:         out std_logic_vector(2 downto 0)
-  );
-
-  end component;
-
   begin
     U1: controller port map(
       Op => instr_s(31 downto 26),
