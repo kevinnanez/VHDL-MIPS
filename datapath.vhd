@@ -14,18 +14,23 @@ end entity;
 
 architecture structural of datapath is
 
-    signal InstrF_FD, InstrD_FD : std_logic_vector(31 downto 0);
+    signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD, SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(31 downto 0);
+    signal PCSrcM, ZeroE, ZeroM: std_logic;
+    signal Funct: std_logic_vector(5 downto 0);
+    signal RtD, RtE, RdD, RdE, WriteRegW, WriteRegE, WriteRegM: std_logic_vector(4 downto 0);
+    signal Op: std_logic_vector(3 downto 0);
+    signal ALUControlE: std_logic_vector(2 downto 0);
 
 begin
 --Fetch
     fetchA : fetch port map (
-        Jump => JumpM,
+        Jump => Jump,
         PcScrM => PCSrcM,
         clk => clk,
         reset => reset,
         PcBranchM => PCBranchM,
-        InstrF => Instr,
-        PCF => PCPlus4D,
+        InstrF => InstrF,
+        PCF => lalala,
         PcPlus4F => PCPlus4F
     );
 --FF Fe-De
@@ -39,7 +44,7 @@ begin
     PCPlus4_FF : flopr port map (
         reset => reset, 
         clk => clk, 
-        d => PCPlus4F, 
+        d => PCPlus4F,
         q => PCPlus4D
     );
 --Decode
@@ -47,12 +52,12 @@ begin
         InstrD => InstrD,
         ResultW => ResultW,
         WriteRegW => WriteRegW,
-        RegWriteW => RegWriteW,
+        RegWriteW => RegWrite,
         clk => clk,
         Op => Op,
         Funct => Funct,
-        RD1 => RD1,
-        RD2 => RD2,
+        RD1D => RD1D,
+        RD2D => RD2D,
         RtD => RtD,
         RdD => RdD,
         SignImmD => SignImmD
@@ -61,14 +66,14 @@ begin
     RD1_FF : flopr port map (
         reset => reset, 
         clk => clk, 
-        d => RD1, 
+        d => RD1D, 
         q => RD2E
     );
 
     RD2_FF : flopr port map (
         reset => reset, 
         clk => clk, 
-        d => RD2, 
+        d => RD2D, 
         q => RD2E
     );
 
@@ -102,8 +107,8 @@ begin
 --Execute
     executeA : execute port map (
         ZeroE => ZeroE,
-        RegDst => RegDstE,
-        AluSrc => ALUSrcE,
+        RegDst => RegDst,
+        AluSrc => AluSrc,
         RtE => RtE,
         RdE => RdE,
         AluControl => ALUControlE,
@@ -126,7 +131,7 @@ begin
     ALUOut_FF : flopr port map (
         reset => reset, 
         clk => clk, 
-        d => ALUOutE, 
+        d => ALUOutE,
         q => ALUOutM
     );
     WriteData_FF : flopr port map (
@@ -150,7 +155,7 @@ begin
 --Memory
     memoryA : memory port map (
         ReadDataM => ReadDataM,
-        MemWriteM => MemWriteM,
+        MemWriteM => MemWrite,
         clk => clk,
         dump => dump,
         AluOutM => ALUOutM,
@@ -177,7 +182,7 @@ begin
     );
 --Writeback
     writebackA : writeback port map (
-        MemToReg => MemtoRegW,
+        MemToReg => MemToReg,
         ResultW => ResultW,
         AluOutW => ALUOutW,
         ReadDataW => ReadDataW
