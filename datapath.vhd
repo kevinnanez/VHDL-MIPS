@@ -15,8 +15,8 @@ architecture structural of datapath is
     signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD,SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(31 downto 0);
     signal PCSrcM, ZeroE, ZeroM: std_logic;
     signal Funct, Op: std_logic_vector(5 downto 0);
-    signal RtD, RtE, WriteRegE, WriteRegM, WriteRegW: std_logic_vector(4 downto 0);
-    signal ALUControlE, RdD, RdE: std_logic_vector(2 downto 0);
+    signal RtD, RtE, RdD, RdE, WriteRegE, WriteRegM, WriteRegW: std_logic_vector(4 downto 0);
+    signal ALUControlE: std_logic_vector(2 downto 0);
 
 begin
 --Fetch
@@ -53,8 +53,8 @@ begin
         clk => clk,
         Op => Op,
         Funct => Funct,
-        RD1D => RD1D,
-        RD2D => RD2D,
+        RD1 => RD1D,
+        RD2 => RD2D,
         RtD => RtD,
         RdD => RdD,
         SignImmD => SignImmD
