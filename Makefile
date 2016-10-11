@@ -1,6 +1,6 @@
 NOMBRE = controller
 
-all: aludec maindec controller
+all: aludec maindec controller datapath
 
 # run:
 # 	echo "Super Makefile!"
@@ -29,6 +29,13 @@ maindec:
 
 controller:
 	ghdl -a controller.vhd
-	ghdl -a controller_tb.vhd
-	ghdl -e controller_tb
-	./controller_tb --stop-time=200ns --vcd=controller.vcd
+	# ghdl -a controller_tb.vhd
+	# ghdl -e controller_tb
+	# ./controller_tb --stop-time=200ns --vcd=controller.vcd
+
+datapath:
+	ghdl -a datapath.vhd
+	# ghdl -a datapath_tb.vhd
+	# ghdl -e datapath_tb
+	# ./datapath_tb --stop-time=200ns --vcd=datapath.vcd
+
