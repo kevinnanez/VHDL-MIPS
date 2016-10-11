@@ -4,7 +4,7 @@ use work.components.all;
 
 entity datapath is
     port(
-        MemToReg, MemWrite, Branch, AluSrc, RegDst, RegWrite, Jump, AluSrc, dump : in std_logic;
+        MemToReg, MemWrite, Branch, AluSrc, RegDst, RegWrite, Jump, dump : in std_logic;
         clk, reset : in std_logic;
         pc, instr : in std_logic_vector(31 downto 0)
     );
