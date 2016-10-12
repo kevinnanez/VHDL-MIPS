@@ -14,7 +14,7 @@ end entity;
 
 architecture structural of datapath is
     signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD,SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(31 downto 0);
-    signal PCSrcM, ZeroE, ZeroM, RegWriteD, RegWriteE, RegWriteM, MemtoRegD, MemtoRegE, MemtoRegM, MemWriteD, MemWriteE, JumpD, JumpE, BranchD, BrnachE, ALUControlD, ALUSrcD, RegDstD: std_logic;
+    signal PCSrcM, ZeroE, ZeroM, RegWriteD, RegWriteE, RegWriteM, MemtoRegD, MemtoRegE, MemtoRegM, MemWriteD, MemWriteE, JumpD, JumpE, BranchD, BranchE, ALUControlD, ALUSrcD, RegDstD: std_logic;
     signal Funct, Op: std_logic_vector(5 downto 0);
     signal RtD, RtE, RdD, RdE, WriteRegE, WriteRegM, WriteRegW: std_logic_vector(4 downto 0);
 
@@ -152,7 +152,7 @@ begin
     );
 
 --Execute
-    executeA : execute generic map(width => 1)port map (
+    executeA : execute port map (
         ZeroE => ZeroE,
         RegDst => RegDst,
         AluSrc => AluSrc,
@@ -228,7 +228,7 @@ begin
         reset => reset,
         clk => clk,
         d => BranchE,
-        q => BranchM
+        q => Branch
     );
 --Memory
     memoryA : memory port map (
