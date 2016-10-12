@@ -1,0 +1,56 @@
+ARQUITECTURA DE COMPUTADORAS 2016
+Laboratorio 1
+
+Miembros:
+Bonias, Melisa
+Ñañez, Kevin Braian
+Wiesztort, Julieta
+
+Informe:
+El presente informe describe la implementación y decisiones de diseño
+tomadas respecto del microprocesador segmentado MIPS.
+
+Diseño:
+Tal como  especificaba en el practico, divimos la implementacion
+de Mips de un solo ciclo en dos componentes (Controller y Datapath)
+A su vez Controller esta compuesto por Maindec y Aludec.
+La implementación del datapath está divida en cinco componentes, cada
+una de las cuales implementa una etapa o fase.
+Ellas son, Fetch, Decode, Execute, Memory, WriteBack. Cada una de estas estan
+compuestas por los componentes mas "basicos" es decir componentes que no
+estan compuestos por otros componentes (mux2, flopr, adder) entre otros.
+Respecto al datapath implementamos los FF intermedios de los cinco componentes,
+es decir FE/DE DE/EX EX/ME y ME/WB.
+
+Testing:
+El test bench consiste en lo siguiente:
+La señal de reset se establece en '1' de manera tal que se produzca un
+reseto de todo el sistema. Se esperan dos ciclos de reloj de manera
+tal que el sistema este listo para comenzar la ejecución. Luego de
+ello reset se establece en '0' y se empieza a analizar fuertemente la
+etapa Instruction Fetch. El objetivo es el siguiente: observar que por
+cada ciclo de reloj el Program Counter toma el valor correcto y la
+instrucción que se obtiene de la Memoria de Instrucciones es la
+correcta.
+El sistema evoluciona de esta manera durante
+17 ciclos de reloj y en este momento ya todas las
+instrucciones se deberían haber ejecutado y las últimas aún deberían
+encontrarse en el pipeline. Luego se establece la señal dump a '1' con
+el objetivo de hacer un vuelco del estado de la memoria RAM de este
+microprocesador en un archivo para poder ser procesada. Este programa
+de ejemplo lo que hace es cargar 8 registros del banco de registros
+con los valores del 0 al 7 (con instrucciones addi) y luego mover
+estos valores a la memoria de datos, cargando en la posición i-ésima
+el valor i, con i variando entre 0 y 7.
+La prueba más importante es analizar el dump de la memoria de datos,
+si los valores han sido escritos satisfactoriamente.
+
+Conclusión:
+Al implementar el marco
+teórico descripto en el libro de Patterson logramos un profundo
+entendimiento del microprocesador MIPS, de su flujo de datos, y de la
+manera en la que con sólo 1 recurso de cada tipo, se puede lograr la
+ejecución simultánea de instrucciones.
+Fue interesante observar la evolución del sistema en GTKWave en el cual se
+podían observar los cambios que iban sufriendo los componentes con
+estado internos a cada fase del pipeline.
