@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 entity regfile is
 generic (width : integer := 32);
 port(ra1, ra2, wa3: in std_logic_vector(4 downto 0);
-     rd1, rd2, wd3: out std_logic_vector(width - 1 downto 0);
+     wd3: in std_logic_vector(width - 1 downto 0);
+     rd1, rd2: out std_logic_vector(width - 1 downto 0);
      clk, we3: in std_logic);
 end regfile;
 

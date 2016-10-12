@@ -17,7 +17,7 @@ end entity;
 
 architecture behavior of execute is
 
-    signal AddResult : std_logic_vector(32 downto 0);
+    signal AddResult : std_logic_vector(31 downto 0);
     signal AdderAux, SrcBE : std_logic_vector(31 downto 0);
 
 begin
@@ -32,10 +32,10 @@ begin
         y => WriteRegE
     );
 
-    AluMux : mux2  port map (
+    AluMux : mux2 port map (
         s => AluSrc,
         d0 => RD2E,
-        d1 => SignlmmE,
+        d1 => SignImmE,
         y => SrcBE
     );
 

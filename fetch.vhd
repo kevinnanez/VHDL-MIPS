@@ -13,7 +13,7 @@ end entity;
 
 architecture behavior of fetch is
 
-    signal TmpAdder : std_logic_vector(32 downto 0);
+    signal TmpAdder : std_logic_vector(31 downto 0);
     signal PCPlus4, PCNext, PC0, PC1, PCJump, Instr : std_logic_vector(31 downto 0);
 
 begin

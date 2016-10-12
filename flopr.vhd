@@ -5,8 +5,8 @@ use ieee.numeric_std.all;
 entity flopr is
 	generic (width : integer := 32);
 	port (clk, reset: in std_logic;
-				q: in std_logic_vector(width-1 downto 0);
-	 			d: out std_logic_vector(width-1 downto 0)
+				d: in std_logic_vector(width-1 downto 0);
+	 			q: out std_logic_vector(width-1 downto 0)
 				);
 end flopr;
 

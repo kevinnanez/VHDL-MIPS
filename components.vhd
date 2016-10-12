@@ -3,6 +3,9 @@ use ieee.std_logic_1164.all;
 
 package components is
 
+    constant MIPS_SOFT_FILE: string := "mips.dat";
+    constant MEMORY_DUMP_FILE: string := "mem.dump";
+
     component adder is
         port (
             a, b: in std_logic_vector(31 downto 0);
@@ -19,7 +22,7 @@ package components is
     end component;
 
     component flopr is
-	    generic (width : integer := 32);
+        generic (width : integer := 32);
         port (
             d: in std_logic_vector(width-1 downto 0);
             clk, reset: in std_logic;
@@ -28,9 +31,10 @@ package components is
     end component;
 
     component mux2 is
+        generic (width : integer := 32);
         port (
-            d0, d1: in std_logic_vector(31 downto 0);
-            s: in std_logic; y: out std_logic_vector(31 downto 0)
+            d0, d1: in std_logic_vector(width-1 downto 0);
+            s: in std_logic; y: out std_logic_vector(width-1 downto 0)
         );
     end component;
 
