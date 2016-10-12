@@ -14,15 +14,21 @@ end entity;
 
 architecture structural of datapath is
     signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD,SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(31 downto 0);
-    signal PCSrcM, ZeroE, ZeroM, RegWriteE, RegWriteM, RegWriteW_D, MemtoRegE, MemtoRegM, MemWriteE, JumpE, BranchE, BranchM : std_logic;
+    signal ZeroE, ZeroM, RegWriteE, RegWriteM, RegWriteW_D, MemtoRegE, MemtoRegM, MemtoRegW, MemWriteE, MemWriteM, JumpE, JumpM, BranchE, BranchM : std_logic;
+    signal AluSrcE, RegDstE : std_logic;
+    signal AluControlE : std_logic_vector(2 downto 0);
     signal Funct, Op: std_logic_vector(5 downto 0);
     signal RtD, RtE, RdD, RdE, WriteRegE, WriteRegM, WriteRegW: std_logic_vector(4 downto 0);
+    signal andFetch : std_logic;
 
 begin
+
+    andFetch <= BranchM and ZeroM;
+
 --Fetch
     fetchA : fetch port map (
         Jump => Jump,
-        PcScrM => PCSrcM,
+        PcSrcM => andFetch,
         clk => clk,
         reset => reset,
         PcBranchM => PCBranchM,
@@ -136,29 +142,29 @@ begin
         reset => reset,
         clk => clk,
         d => ALUControl,
-        q => ALUControl
+        q => ALUControlE
     );
     BALUSrc_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => ALUSrc,
-        q => ALUSrc
+        q => ALUSrcE
     );
     BRegDst_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => RegDst,
-        q => RegDst
+        q => RegDstE
     );
 
 --Execute
     executeA : execute port map (
         ZeroE => ZeroE,
-        RegDst => RegDst,
-        AluSrc => AluSrc,
+        RegDst => RegDstE,
+        AluSrc => AluSrcE,
         RtE => RtE,
         RdE => RdE,
-        AluControl => ALUControl,
+        AluControl => ALUControlE,
         WriteRegE => WriteRegE,
         RD1E => RD1E,
         RD2E => RD2E,
@@ -169,7 +175,7 @@ begin
         PCBranchE => PCBranchE
     );
 --FF Ex-Mem
-    Zero_FF : flopr port map (
+    Zero_FF : flopr1 port map (
         reset => reset, 
         clk => clk, 
         d => ZeroE, 
@@ -209,31 +215,31 @@ begin
     BMemtoReg2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => MemtoReg,
+        d => MemtoRegE,
         q => MemtoRegM
     );
     BMemWrite2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => MemWriteE,
-        q => MemWrite
+        q => MemWriteM
     );
     BJump2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => JumpE,
-        q => Jump
+        q => JumpM
     );
     BBranch2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => BranchE,
-        q => Branch
+        q => BranchM
     );
 --Memory
     memoryA : memory port map (
         ReadDataM => ReadDataM,
-        MemWriteM => MemWrite,
+        MemWriteM => MemWriteM,
         clk => clk,
         dump => dump,
         AluOutM => ALUOutM,
@@ -268,12 +274,12 @@ begin
     BMemtoReg3_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => MemtoReg,
-        q => MemtoReg
+        d => MemtoRegM,
+        q => MemtoRegW
     );
 --Writeback
     writebackA : writeback port map (
-        MemToReg => MemToReg,
+        MemToReg => MemToRegW,
         ResultW => ResultW,
         AluOutW => ALUOutW,
         ReadDataW => ReadDataW
