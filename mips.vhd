@@ -3,9 +3,10 @@ use ieee.std_logic_1164.all;
 use work.components.all;
 
 entity mips is
-  port(reset, clk, dump : in std_logic;
-      instr, pc : out std_logic_vector(31 downto 0)
-      );
+    port(
+        reset, clk, dump : in std_logic;
+        instr, pc : out std_logic_vector(31 downto 0)
+    );
 end entity;
 
 architecture structural of mips is

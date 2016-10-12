@@ -12,11 +12,6 @@ end regfile;
 
 architecture arq of regfile is
 
-  --signal mem : mem_type := (
-    --0 => x"abcdabcd",
-    --1 => x"12345678",
-    --others => x"11111111");
-
     type imem_type is array (31 downto 0) of std_logic_vector(31 downto 0);
     signal mem : imem_type := (
     others => x"00000000");
