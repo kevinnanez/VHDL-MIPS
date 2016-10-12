@@ -80,7 +80,7 @@ begin
         q => RD2E
     );
 
-    Rt_FF : flopr generic map(width => 3) port map (
+    Rt_FF : flopr generic map(width => 5) port map (
         reset => reset, 
         clk => clk, 
         d => RtD, 

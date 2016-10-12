@@ -40,6 +40,7 @@ begin
         wait for 1900 ns;
         dump_s <= '1';
         wait for 300 ns;
+        wait;
     end process;
 
 end architecture;
