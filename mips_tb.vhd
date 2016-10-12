@@ -22,25 +22,28 @@ architecture test_mips of mips_tb is
 begin
     mapping: mips port map(reset => reset_s, clk => clk_s, dump => dump_s,
                            instr => instr_s, pc => pc_s);
-
+--clk process
     process
-    begin
+        begin
         clk_s <= '1';
-        wait for 100 ns;
+        wait for 5 ns;
         clk_s <= '0';
-        wait for 100 ns;
+        wait for 5 ns;
     end process;
 
+--Dump memory process
     process
-    begin
-        dump_s <= '0';
-        reset_s <= '1';
-        wait for 200 ns;
-        reset_s <= '0';
-        wait for 1900 ns;
-        dump_s <= '1';
-        wait for 300 ns;
-        wait;
-    end process;
+        begin
+          dump_s <= '0';
+          reset_s <= '1';
+          wait for 20 ns;
+          reset_s <= '0';
+          wait for 170 ns;
+          dump_s <= '1';
+          wait for 30 ns;
+          dump_s <= '0';
+          wait for 10 ns;
+          wait;
+        end process;
 
 end architecture;

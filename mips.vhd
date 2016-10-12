@@ -15,6 +15,9 @@ architecture structural of mips is
   signal instr_s, pc_s : std_logic_vector(31 downto 0);
 
   begin
+
+    instr <= instr_s;
+
     U1: controller port map(
       Op => instr_s(31 downto 26),
       Funct => instr_s(5 downto 0),
@@ -28,9 +31,9 @@ architecture structural of mips is
       AluControl => AluControl_s);
 
     U2: datapath port map(
-      reset => reset_s,
-      clk => clk_s,
-      dump => dump_s,
+      reset => reset,
+      clk => clk,
+      dump => dump,
       MemToReg => MemToReg_s,
       MemWrite => MemWrite_s,
       Branch => Branch_s,

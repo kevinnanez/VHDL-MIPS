@@ -27,28 +27,9 @@ begin
     variable mem: ramtype;
   begin
     -- initialize memory from file
-    --for i in 0 to MAX_BOUND-1 loop -- set all contents low
-    mem(0) := x"20080000";
-    mem(1) := x"20090001";
-    mem(2) := x"200a0002";
-    mem(3) := x"200b0003";
-    mem(4) := x"200c0004";
-    mem(5) := x"200d0005";
-    mem(6) := x"200e0006";
-    mem(7) := x"200f0007";
-    mem(8) := x"ac080000";
-    mem(9) := x"ac090004";
-    mem(10) := x"ac0a0008";
-    mem(11) := x"ac0b000c";
-    mem(12) := x"ac0c0010";
-    mem(13) := x"ac0d0014";
-    mem(14) := x"ac0e0018";
-    mem(15) := x"ac0f001c";
-    mem(16) := x"ac0f001c";
-    mem(17) := x"ac0f001c";
-    mem(18) := x"ac0f001c";
-      --mem(i) := "00000000000000000000000000000000";
-    --end loop;
+    for i in 0 to MAX_BOUND-1 loop -- set all contents low
+      mem(i) := "00000000000000000000000000000000";
+    end loop;
     index := 0;
     FILE_OPEN(mem_file, MIPS_SOFT_FILE, READ_MODE);
     while not endfile(mem_file) loop

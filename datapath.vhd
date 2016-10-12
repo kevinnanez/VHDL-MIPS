@@ -24,6 +24,7 @@ architecture structural of datapath is
 begin
 
     andFetch <= BranchM and ZeroM;
+    instr <= InstrF;
 
 --Fetch
     fetchA : fetch port map (
