@@ -27,7 +27,7 @@ begin
 
 --Fetch
     fetchA : fetch port map (
-        Jump => Jump,
+        Jump => JumpM,
         PcSrcM => andFetch,
         clk => clk,
         reset => reset,
@@ -147,8 +147,8 @@ begin
     BALUSrc_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => ALUSrc,
-        q => ALUSrcE
+        d => AluSrc,
+        q => AluSrcE
     );
     BRegDst_FF : flopr1 port map (
         reset => reset,
@@ -164,7 +164,7 @@ begin
         AluSrc => AluSrcE,
         RtE => RtE,
         RdE => RdE,
-        AluControl => ALUControlE,
+        AluControl => AluControlE,
         WriteRegE => WriteRegE,
         RD1E => RD1E,
         RD2E => RD2E,
