@@ -30,6 +30,21 @@ mips:
 	ghdl -e mips_tb
 	./mips_tb --stop-time=300ns --vcd=mips.vcd
 
+
+decode:
+	ghdl -a decode.vhd
+	ghdl -a decode_tb.vhd
+	ghdl -e decode_tb
+	./decode_tb --stop-time=300ns --vcd=decode.vcd
+
+
+
+memory:
+	ghdl -a memory.vhd
+	ghdl -a memory_tb.vhd
+	ghdl -e memory_tb
+	./memory_tb --stop-time=300ns --vcd=memory.vcd
+
 fetch:
 	ghdl -a fetch.vhd
 	ghdl -a fetch_tb.vhd

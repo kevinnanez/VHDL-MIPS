@@ -47,6 +47,8 @@ begin
     mem(16) := x"ac0f001c";
     mem(17) := x"ac0f001c";
     mem(18) := x"ac0f001c";
+    mem(19) := x"ac0f001c";
+    mem(20) := x"ac0f001c";
       --mem(i) := "00000000000000000000000000000000";
     --end loop;
     index := 0;

@@ -38,9 +38,9 @@ begin
           reset_s <= '1';
           wait for 20 ns;
           reset_s <= '0';
-          wait for 170 ns;
+          wait for 147 ns;
           dump_s <= '1';
-          wait for 30 ns;
+          wait for 27 ns;
           dump_s <= '0';
           wait for 10 ns;
           wait;
