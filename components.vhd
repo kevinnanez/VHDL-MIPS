@@ -10,6 +10,14 @@ package components is
         );
     end component;
 
+    component flopr1 is
+        port (
+            d: in std_logic;
+            clk, reset: in std_logic;
+            q: out std_logic
+        );
+    end component;
+
     component flopr is
 	    generic (width : integer := 32);
         port (

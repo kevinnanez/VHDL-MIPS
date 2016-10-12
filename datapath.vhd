@@ -14,7 +14,7 @@ end entity;
 
 architecture structural of datapath is
     signal InstrF_FD, InstrD_FD, PCBranchE, PCBranchM, PCPlus4F, PCPlus4D, PCPlus4E, InstrF, InstrD, ResultW, RD1D, RD2D, RD1E, RD2E, SignImmD,SignImmE, ALUOutE, ALUOutM, ALUOutW, WriteDataE, WriteDataM, ReadDataM, ReadDAtaW: std_logic_vector(31 downto 0);
-    signal PCSrcM, ZeroE, ZeroM, RegWriteD, RegWriteE, RegWriteM, MemtoRegD, MemtoRegE, MemtoRegM, MemWriteD, MemWriteE, JumpD, JumpE, BranchD, BranchE, ALUControlD, ALUSrcD, RegDstD: std_logic;
+    signal PCSrcM, ZeroE, ZeroM, RegWriteE, RegWriteM, RegWriteW_D, MemtoRegE, MemtoRegM, MemWriteE, JumpE, BranchE, BranchM : std_logic;
     signal Funct, Op: std_logic_vector(5 downto 0);
     signal RtD, RtE, RdD, RdE, WriteRegE, WriteRegM, WriteRegW: std_logic_vector(4 downto 0);
 
@@ -49,7 +49,7 @@ begin
         InstrD => InstrD,
         ResultW => ResultW,
         WriteRegW => WriteRegW,
-        RegWriteW => RegWrite,
+        RegWriteW => RegWriteW_D,
         clk => clk,
         Op => Op,
         Funct => Funct,
@@ -102,52 +102,52 @@ begin
         q => PCPlus4E
     );
 --Blue FF
-    BRegWrite_FF : flopr generic map(width => 1) port map (
+    BRegWrite_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => RegWriteD,
+        d => RegWrite,
         q => RegWriteE
     );
-    BMemtoReg_FF : flopr generic map(width => 1) port map (
+    BMemtoReg_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => MemtoRegD,
+        d => MemtoReg,
         q => MemtoRegE
     );
-    BMemWrite_FF : flopr generic map(width => 1) port map (
+    BMemWrite_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => MemWriteD,
+        d => MemWrite,
         q => MemWriteE
     );
-    BJump_FF : flopr generic map(width => 1) port map (
+    BJump_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => JumpD,
+        d => Jump,
         q => JumpE
     );
-    BBranch_FF : flopr generic map(width => 1) port map (
+    BBranch_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => BranchD,
+        d => Branch,
         q => BranchE
     );
     BALUControl_FF : flopr generic map(width => 3) port map (
         reset => reset,
         clk => clk,
-        d => ALUControlD,
+        d => ALUControl,
         q => ALUControl
     );
-    BALUSrc_FF : flopr generic map(width => 1) port map (
+    BALUSrc_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => ALUSrcD,
+        d => ALUSrc,
         q => ALUSrc
     );
-    BRegDst_FF : flopr generic map(width => 1) port map (
+    BRegDst_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => RegDstD,
+        d => RegDst,
         q => RegDst
     );
 
@@ -200,31 +200,31 @@ begin
         q => PCBranchM
     );
 --Blue FF
-    BRegWrite2_FF : flopr generic map(width => 1) port map (
+    BRegWrite2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => RegWriteE,
         q => RegWriteM
     );
-    BMemtoReg2_FF : flopr generic map(width => 1) port map (
+    BMemtoReg2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => MemtoRegE,
+        d => MemtoReg,
         q => MemtoRegM
     );
-    BMemWrite2_FF : flopr generic map(width => 1) port map (
+    BMemWrite2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => MemWriteE,
         q => MemWrite
     );
-    BJump2_FF : flopr generic map(width => 1) port map (
+    BJump2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => JumpE,
         q => Jump
     );
-    BBranch2_FF : flopr generic map(width => 1) port map (
+    BBranch2_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => BranchE,
@@ -259,16 +259,16 @@ begin
         q => WriteRegW
     );
 --Blue FF
-    BRegWrite3_FF : flopr generic map(width => 1) port map (
+    BRegWrite3_FF : flopr1 port map (
         reset => reset,
         clk => clk,
         d => RegWriteM,
-        q => RegWrite
+        q => RegWriteW_D
     );
-    BMemtoReg3_FF : flopr generic map(width => 1) port map (
+    BMemtoReg3_FF : flopr1 port map (
         reset => reset,
         clk => clk,
-        d => MemtoRegM,
+        d => MemtoReg,
         q => MemtoReg
     );
 --Writeback
