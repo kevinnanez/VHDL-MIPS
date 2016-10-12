@@ -33,7 +33,7 @@ begin
         reset => reset,
         PcBranchM => PCBranchM,
         InstrF => InstrF,
-        --PCF => lalala,
+        PCF => pc,
         PcPlus4F => PCPlus4F
     );
 --FF Fe-De
