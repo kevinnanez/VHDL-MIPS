@@ -9,6 +9,6 @@ sup:
 	sw $t0, 0($t2)
 	addi $t2, $t2, 4
 	addi $t0, $t0, 1
-	bne $t0, $t1, hola
+	bne $t0, $t1, sup
 
 exit: j exit
